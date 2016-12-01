@@ -23,15 +23,13 @@ OBS: The Library Simple OpenNI only works with Processing 2!
 import SimpleOpenNI.*;
 SimpleOpenNI kinect;
 
-// For air-drawing
-float minThresh = 1550; // millimeters
-float maxThresh = 1650; // millimeters
+PImage backgroundImage;
 
+// For air-drawing
 float x;
 float y;
 
 PGraphics pg;
-PImage backgroundImage;
 
 // For depthKeying
 int[] userMap;
@@ -63,29 +61,10 @@ void setup() {
 
 void draw(){
   int[] depth = kinect.depthMap();
-  float sumX = 0;
-  float sumY = 0;
-  float totalPixels = 0;
-  
-  // Loop through all pictures
-  for (int x = 0; x < kinect.depthWidth(); x++) {
-    for ( int y = 0; y < kinect.depthHeight(); y++){
-      int offset = x + y * kinect.depthWidth();
-      int d = depth[offset];
-      
-      // All pixels that are within the drawing depth.
-      if (d >minThresh && d < maxThresh) {
-        sumX += x;
-        sumY += y;
-        totalPixels++;
-        
-      } 
-    }
-  }
-  
-  //Find middle-point of all pixels that are within the drawing depth.
-  float avgX = sumX / totalPixels;
-  float avgY = sumY / totalPixels;
+
+  averagePoint avgP = new averagePoint(depth, kinect.depthWidth(), kinect.depthHeight());
+  float avgX = avgP.getX();
+  float avgY = avgP.getY();
   
   // Drawing
   pg.beginDraw();
