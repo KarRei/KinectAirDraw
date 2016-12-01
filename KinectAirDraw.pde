@@ -1,7 +1,7 @@
 /***********
 Author: Karin Reidarman
 Info: This program takes the depth data from a a Kinect-camera and builds an
-interactive photobooth.
+interactive photobooth. See result video: https://karrei.github.io/KinectAirDraw/
 
 Instructions: Leave the scene empty of people and start up the application. 
 Walk in the scene no closer than 1.7 m away from camera. Put your hand in the depth
